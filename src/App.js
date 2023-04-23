@@ -18,7 +18,29 @@ export class App {
             // それぞれのTodoItem要素をtodoListElement以下へ追加する
             const todoItems = this.#todoListModel.getTodoItems();
             todoItems.forEach((item) => {
-                const todoItemElement = element`<li>${item.title}</li>`;
+                const todoItemElement = item.completed
+                    ? element`<li><input type="checkbox" class="checkbox" checked><s>${item.title}</s><button class="delete">x</button></li>`
+                    : element`<li><input type="checkbox" class="checkbox"><button class="delete">x</button>${item.title}</li>`;
+                const inputCheckboxElement = todoItemElement.querySelector(
+                    ".checkbox"
+                );
+                const deleteButtonElement = todoItemElement.querySelector(
+                    ".delete"
+                );
+                inputCheckboxElement.addEventListener("change", () => {
+                    // 指定したTodoアイテムの完了状態を反転させる
+                    // todoListModelのonChangeが実行される
+                    this.#todoListModel.updateTodo({
+                        id: item.id,
+                        completed: !item.completed,
+                    });
+                });
+                deleteButtonElement.addEventListener("click", () => {
+                    this.#todoListModel.deleteTodo({
+                        id: item.id,
+                    });
+                });
+
                 todoListElement.appendChild(todoItemElement);
             });
             // コンテナ要素の中身をTodoリストをまとめるList要素で上書きする
@@ -30,6 +52,7 @@ export class App {
         formElement.addEventListener("submit", (event) => {
             event.preventDefault();
             // 新しいTodoItemをTodoListへ追加する
+            // todoListModelのonChangeが実行される
             this.#todoListModel.addTodo(
                 new TodoItemModel({
                     title: inputElement.value,
