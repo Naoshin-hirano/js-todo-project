@@ -7,16 +7,28 @@ export class App {
     // 1. TodoListModelの初期化
     #todoListModel = new TodoListModel();
 
+    /**
+     * Todoを追加するときに呼ばれるリスナー関数
+     * @param {string} title
+     */
     handleAdd(title) {
         this.#todoListModel.addTodo(
             new TodoItemModel({ title, completed: false })
         );
     }
 
+    /**
+     * Todoの状態を更新したときに呼ばれるリスナー関数
+     * @param {{ id:number, completed: boolean }}
+     */
     handleUpdate({ title, completed }) {
         this.#todoListModel.updateTodo({ title, completed });
     }
 
+    /**
+     * Todoを削除したときに呼ばれるリスナー関数
+     * @param {{ id: number }}
+     */
     handleDelete({ id }) {
         this.#todoListModel.deleteTodo({ id });
     }
