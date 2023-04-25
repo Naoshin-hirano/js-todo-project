@@ -12,17 +12,20 @@ export class App {
     inputElement;
     containerElement;
     todoItemCountElement;
+    keepButton;
 
     constructor({
         formElement,
         inputElement,
         containerElement,
         todoItemCountElement,
+        keepButton,
     }) {
         this.formElement = formElement;
         this.inputElement = inputElement;
         this.containerElement = containerElement;
         this.todoItemCountElement = todoItemCountElement;
+        this.keepButton = keepButton;
     }
 
     /**
@@ -111,6 +114,7 @@ export class App {
         // 3. フォームを送信したら、新しいTodoItemModelを追加する
         // View → Model
         this.formElement.addEventListener("submit", this.handleSubmit);
+        this.keepButton.addEventListener("click", this.handleSubmit);
     }
 
     /**
