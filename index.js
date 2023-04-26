@@ -4,6 +4,8 @@ const inputElement = document.querySelector("#js-form-input");
 const containerElement = document.querySelector("#js-todo-list");
 const todoItemCountElement = document.querySelector("#js-todo-count");
 const keepButton = document.querySelector("#keep-btn");
+const nonComplete = document.querySelector("#non-complete");
+const completed = document.querySelector("#completed");
 
 const app = new App({
     formElement,
@@ -11,6 +13,8 @@ const app = new App({
     containerElement,
     todoItemCountElement,
     keepButton,
+    nonComplete,
+    completed,
 });
 window.addEventListener("load", () => {
     app.mount();

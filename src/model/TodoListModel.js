@@ -19,6 +19,34 @@ export class TodoListModel extends EventEmitter {
     }
 
     /**
+     * 完了済みのTodoItemの数を返す
+     * @returns {number}
+     */
+    getCheckedCount() {
+        let count = 0;
+        for (let i = 0; i < this.#items.length; i++) {
+            if (this.#items[i].completed) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 未完了のTodoItemの数を返す
+     * @returns {number}
+     */
+    getUncheckedCount() {
+        let count = 0;
+        for (let i = 0; i < this.#items.length; i++) {
+            if (!this.#items[i].completed) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * 表示できるTodoItemの配列を返す
      * @returns {TodoItemModel[]}
      */

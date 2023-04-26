@@ -13,6 +13,8 @@ export class App {
     containerElement;
     todoItemCountElement;
     keepButton;
+    nonComplete;
+    completed;
 
     constructor({
         formElement,
@@ -20,12 +22,16 @@ export class App {
         containerElement,
         todoItemCountElement,
         keepButton,
+        nonComplete,
+        completed,
     }) {
         this.formElement = formElement;
         this.inputElement = inputElement;
         this.containerElement = containerElement;
         this.todoItemCountElement = todoItemCountElement;
         this.keepButton = keepButton;
+        this.nonComplete = nonComplete;
+        this.completed = completed;
     }
 
     /**
@@ -87,6 +93,8 @@ export class App {
         const todoItemList = this.#todoListModel.getTodoItems();
         const containerElement = this.containerElement;
         const countElement = this.todoItemCountElement;
+        const nonComplete = this.nonComplete;
+        const completed = this.completed;
         const todoListElement = this.#todoListView.createElement(todoItemList, {
             // View → Model
             onUpdateTodo: ({ id, completed }) => {
@@ -102,6 +110,10 @@ export class App {
         render(todoListElement, containerElement);
         // アイテム数の表示を更新
         countElement.textContent = `Todoアイテム数: ${this.#todoListModel.getTotalCount()}`;
+        // 未完了タスク数の更新
+        nonComplete.textContent = `未完了: ${this.#todoListModel.getUncheckedCount()}`;
+        // 完了済みタスク数の更新
+        completed.textContent = `完了済み: ${this.#todoListModel.getCheckedCount()}`;
     };
 
     /**
