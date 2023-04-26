@@ -99,7 +99,15 @@ export class TodoListModel extends EventEmitter {
         this.emitChange();
     }
 
+    /**
+     * 指定したidのTodoItemを削除する
+     * @param {{ id:number }}
+     */
     deleteTodo({ id }) {
+        const question = confirm("本当に削除してもよろしいですか？");
+        if (!question) {
+            return;
+        }
         this.#items = this.#items.filter((item) => {
             return item.id !== id;
         });
