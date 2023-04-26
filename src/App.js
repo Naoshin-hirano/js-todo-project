@@ -139,5 +139,6 @@ export class App {
         // 3. フォームを送信したら、新しいTodoItemModelを追加する
         // View → Model
         this.formElement.removeEventListener("submit", this.handleSubmit());
+        this.keepButton.removeEventListener("click", this.handleSubmit);
     }
 }
