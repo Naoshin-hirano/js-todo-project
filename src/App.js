@@ -15,6 +15,8 @@ export class App {
     keepButton;
     nonComplete;
     completed;
+    editMode;
+    editField;
 
     constructor({
         formElement,
@@ -24,6 +26,8 @@ export class App {
         keepButton,
         nonComplete,
         completed,
+        editMode,
+        editField,
     }) {
         this.formElement = formElement;
         this.inputElement = inputElement;
@@ -32,6 +36,8 @@ export class App {
         this.keepButton = keepButton;
         this.nonComplete = nonComplete;
         this.completed = completed;
+        this.editMode = editMode;
+        this.editField = editField;
     }
 
     /**
@@ -41,7 +47,7 @@ export class App {
     handleAdd = (title) => {
         // メソッド時のthisは呼び出し元の親がないのでグローバルオブジェクト(App)になる
         this.#todoListModel.addTodo(
-            new TodoItemModel({ title, completed: false })
+            new TodoItemModel({ title, completed: false, editMode: false })
         );
     };
 
@@ -61,6 +67,22 @@ export class App {
     handleDelete = ({ id }) => {
         // メソッド時のthisは呼び出し元の親がないのでグローバルオブジェクト(App)になる
         this.#todoListModel.deleteTodo({ id });
+    };
+
+    /**
+     * Todoのチェックを押下したときに呼ばれるリスナー関数
+     * @param {{ id: number, editMode: boolean }}
+     */
+    handleEdit = ({ id, editMode }) => {
+        this.#todoListModel.editTodo({ id, editMode });
+    };
+
+    /**
+     * Todoを編集して保存したときに呼ばれるリスナー関数
+     * @param {{ id: number, editMode: boolean, title: string }}
+     */
+    handleSaveEdit = ({ id, editMode, title }) => {
+        this.#todoListModel.saveEditTodo({ id, editMode, title });
     };
 
     /**
@@ -103,8 +125,20 @@ export class App {
                 this.handleUpdate({ id, completed });
             },
             // View → Model
+            onInputUpdateTodo: ({ id, title }) => {
+                this.handleInputUpdate({ id, title });
+            },
+            // View → Model
             onDeleteTodo: ({ id }) => {
                 this.handleDelete({ id });
+            },
+            // View → Model
+            onEditTodo: ({ id, editMode }) => {
+                this.handleEdit({ id, editMode });
+            },
+            // View → Model
+            onSaveEditTodo: ({ id, editMode, title }) => {
+                this.handleSaveEdit({ id, editMode, title });
             },
         });
         render(todoListElement, containerElement);

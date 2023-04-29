@@ -9,7 +9,10 @@ export class TodoListView {
      * @param {function({id:string})} onDeleteTodo 削除ボタンのクリックイベントリスナー
      * @returns {Element} TodoItemModelの配列に対応したリストのHTML要素
      */
-    createElement(todoItems, { onUpdateTodo, onDeleteTodo }) {
+    createElement(
+        todoItems,
+        { onUpdateTodo, onDeleteTodo, onEditTodo, onSaveEditTodo }
+    ) {
         const todoListElement = element`<ul></ul>`;
         // 各TodoItemモデルに対応したHTML要素を作成し、リスト要素へ追加する
         todoItems.forEach((todoItem) => {
@@ -17,6 +20,8 @@ export class TodoListView {
             const todoItemElement = todoItemView.createElement(todoItem, {
                 onUpdateTodo,
                 onDeleteTodo,
+                onEditTodo,
+                onSaveEditTodo,
             });
             todoListElement.appendChild(todoItemElement);
         });

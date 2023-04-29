@@ -6,6 +6,8 @@ const todoItemCountElement = document.querySelector("#js-todo-count");
 const keepButton = document.querySelector("#keep-btn");
 const nonComplete = document.querySelector("#non-complete");
 const completed = document.querySelector("#completed");
+const editMode = document.querySelector(".completed");
+const editField = document.querySelector(".editField");
 
 const app = new App({
     formElement,
@@ -15,6 +17,8 @@ const app = new App({
     keepButton,
     nonComplete,
     completed,
+    editMode,
+    editField,
 });
 window.addEventListener("load", () => {
     app.mount();
