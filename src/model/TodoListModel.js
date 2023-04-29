@@ -87,7 +87,7 @@ export class TodoListModel extends EventEmitter {
     }
 
     /**
-     * 指定したidのTodoItemのcompletedを更新する
+     * 指定したidのTodoItemの完了チェックボタンを更新する
      * @param {{ id:number, completed: boolean }}
      */
     updateTodo({ id, completed }) {
@@ -99,6 +99,10 @@ export class TodoListModel extends EventEmitter {
         this.emitChange();
     }
 
+    /**
+     * 指定したidのTodoItemを編集モードに切り替え
+     * @param {{ id:number, editMode: boolean }}
+     */
     editTodo({ id, editMode }) {
         const todoItem = this.#items.find((item) => item.id === id);
         if (!todoItem) {
@@ -108,6 +112,10 @@ export class TodoListModel extends EventEmitter {
         this.emitChange();
     }
 
+    /**
+     * 指定したidのTodoItemの編集したタイトルを更新する
+     * @param {{ id:number, editMode: boolean, title: string }}
+     */
     saveEditTodo({ id, editMode, title }) {
         const todoItem = this.#items.find((item) => item.id === id);
         if (!todoItem) {
