@@ -1,0 +1,4 @@
+# js-todo-project
+①Viewがなにを変更するのかModelに伝える
+②Modelがその形に変わり
+③Modelがその最新の状態をViewに送りViewが形成
