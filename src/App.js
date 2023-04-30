@@ -125,10 +125,6 @@ export class App {
                 this.handleUpdate({ id, completed });
             },
             // View → Model
-            onInputUpdateTodo: ({ id, title }) => {
-                this.handleInputUpdate({ id, title });
-            },
-            // View → Model
             onDeleteTodo: ({ id }) => {
                 this.handleDelete({ id });
             },
